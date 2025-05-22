@@ -1,0 +1,54 @@
+.preloader-container {
+  background: #0d1117;
+  color: #00ffae;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.terminal-window {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 255, 174, 0.2);
+  min-width: 300px;
+  min-height: 60px;
+  margin-bottom: 30px;
+}
+
+.terminal-line {
+  font-size: 1.1rem;
+  white-space: pre-wrap;
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.rotating-logo img {
+  width: 60px;
+  height: 60px;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.footer-text {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #8b949e;
+}
