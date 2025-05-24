@@ -12,9 +12,11 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import ScrollToTop from "./components/ScrollToTop";
+import AuthPopup from './components/AuthPopup';
 
 function App() {
   const [load, upadateLoad] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -23,22 +25,36 @@ function App() {
 
     return () => clearTimeout(timer);
   }, []);
-
+  useEffect(() => {
+    const authenticated = localStorage.getItem('siteAuthenticated');
+    console.log(authenticated);
+    if (authenticated === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
   return (
     <Router>
       {load ? (
         <Preloader load={load} />
       ) : (
         <div className="App" id={load ? "no-scroll" : "scroll"}>
-          <Navbar />
-          <ScrollToTop />
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/project" component={Projects} />
-            <Route path="/about" component={About} />
-            <Route path="/resume" component={Resume} />
-          </Switch>
-          <Footer />
+          {/* Show AuthPopup if NOT authenticated */}
+          {!isAuthenticated ? (
+  <AuthPopup visible={true} onAuthenticated={setIsAuthenticated} />
+) : (
+            // Show the site only if authenticated
+            <>
+              <Navbar />
+              <ScrollToTop />
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/project" component={Projects} />
+                <Route path="/about" component={About} />
+                <Route path="/resume" component={Resume} />
+              </Switch>
+              <Footer />
+            </>
+          )}
         </div>
       )}
     </Router>
